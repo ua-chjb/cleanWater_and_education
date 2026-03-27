@@ -2,6 +2,8 @@ import dash_mantine_components as dmc
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
+from pygam import LinearGAM, te, s
+
 from scipy import stats
 import statsmodels.api as sm
 from statsmodels.stats.diagnostic import het_breuschpagan, linear_rainbow
@@ -41,7 +43,7 @@ def map_geo(x):
     )
 
 
-def histogram_or_scatter(x, y=None):
+def eda(x, y=None, z=None):
 
     fig = go.Figure()
 
@@ -49,10 +51,11 @@ def histogram_or_scatter(x, y=None):
         return fig.add_trace(
             go.Histogram(x=we[x], marker={"color": colors["blue"]})
         ).update_layout({"title": {"text": f"Distribution of {x}"}})
-    else:
-        m, b = np.polyfit(we[x], we[y], deg=1)
-        x_line = np.linspace(we[x].min(), we[x].max(), 100)
-        y_line = m * x_line + b
+    elif z == None:
+
+        gam = LinearGAM(s(0)).fit(we[x].values.reshape(-1, 1), we[y].values)
+        x_line = np.linspace(we[x].min(), we[x].max(), len(we))
+        y_line = gam.predict(x_line)
 
         return (
             fig.add_trace(
@@ -82,6 +85,51 @@ def histogram_or_scatter(x, y=None):
                     "title": {"text": f"{x} by {y}"},
                     "xaxis": {"title": {"text": f"{x}"}},
                     "yaxis": {"title": {"text": f"{y}"}},
+                }
+            )
+        )
+    else:
+        n = len(we)
+        x_range = np.linspace(we[x].min(), we[x].max(), n)
+        y_range = np.linspace(we[y].min(), we[y].max(), n)
+        xx, yy = np.meshgrid(x_range, y_range)
+
+        gam = LinearGAM(te(0, 1)).fit(np.column_stack([we[x], we[y]]), we[z])
+        zz = gam.predict(np.column_stack([xx.flatten(), yy.flatten()])).reshape(
+            xx.shape
+        )
+
+        return (
+            fig.add_trace(
+                go.Scatter3d(
+                    x=we[x],
+                    y=we[y],
+                    z=we[z],
+                    showlegend=False,
+                    mode="markers",
+                    marker={"color": colors["blue"]},
+                    name=f"{x} by {y} by {z}",
+                )
+            )
+            .add_trace(
+                go.Surface(
+                    x=xx,
+                    y=yy,
+                    z=zz,
+                    opacity=0.8,
+                    colorscale="blues",
+                    showscale=False,
+                    name="spline surface",
+                )
+            )
+            .update_layout(
+                {
+                    "title": {"text": f"{x} by {y} by {z}"},
+                    "scene": {
+                        "xaxis": {"title": {"text": f"{x}"}},
+                        "yaxis": {"title": {"text": f"{y}"}},
+                        "zaxis": {"title": {"text": f"{z}"}},
+                    },
                 }
             )
         )

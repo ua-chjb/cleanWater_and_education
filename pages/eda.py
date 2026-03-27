@@ -41,6 +41,23 @@ eda = html.Div(
                             withBorder=True,
                             className="eda-dropdown-card",
                         ),
+                        dmc.Card(
+                            [
+                                dmc.Select(
+                                    id="eda_select_z_IN",
+                                    label="z value",
+                                    placeholder="select for scatter 3d...",
+                                    data=collst_fe,
+                                    value=None,
+                                    clearable=True,
+                                    searchable=True,
+                                    disabled=True,
+                                )
+                            ],
+                            radius="md",
+                            withBorder=True,
+                            className="eda-dropdown-card",
+                        ),
                     ],
                     className="eda-dropdown-div",
                 ),

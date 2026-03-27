@@ -58,9 +58,16 @@ def switchboard(app):
         Output("eda_OUT", "figure"),
         Input("eda_select_x_IN", "value"),
         Input("eda_select_y_IN", "value"),
+        Input("eda_select_z_IN", "values"),
     )
-    def eda_fold_one(x, y):
-        return lyt(histogram_or_scatter(x, y))
+    def eda_fold_one(x, y, z):
+        return lyt(histogram_or_scatter(x, y, z))
+
+    @app.callback(
+        Output("eda_select_z_IN", "disabled"), Input("eda_select_y_IN", "value")
+    )
+    def show_dropdown(y_value):
+        return y_value is None
 
     @app.callback(
         Output("map_OUT", "figure"),
