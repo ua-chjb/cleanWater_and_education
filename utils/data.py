@@ -45,6 +45,8 @@ collst_fe = [
     "lower_school_water__limited_0%",
 ]
 
+tables = summ.tables
+
 sm_Y_preds = sm_model.fittedvalues
 sm_resids = sm_model.resid
 x = sm_model.model.exog

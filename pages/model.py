@@ -3,10 +3,8 @@ import dash_mantine_components as dmc
 
 from components.charts import conf_pred_interval_scatter
 from components.df_to_table import to_dmc_table
-from utils.data import summary
+from utils.data import tables
 from utils.model_text import model_text_dct
-
-tables = summary.tables
 
 model = html.Div(
     [
