@@ -7,7 +7,7 @@ from components.charts import (
     assumptions_linearity,
     assumptions_multicollinearity,
     assumptions_normality_of_residuals,
-    histogram_or_scatter,
+    eda,
     map_geo,
 )
 from components.content import content_map, headers_map
@@ -61,7 +61,7 @@ def switchboard(app):
         Input("eda_select_z_IN", "values"),
     )
     def eda_fold_one(x, y, z):
-        return lyt(histogram_or_scatter(x, y, z))
+        return lyt(eda(x, y, z))
 
     @app.callback(
         Output("eda_select_z_IN", "disabled"), Input("eda_select_y_IN", "value")
