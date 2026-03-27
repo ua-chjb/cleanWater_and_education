@@ -1,12 +1,37 @@
+import boto3
+import io
 import pandas as pd
-import plotly.express as px
+import pickle
 import statsmodels.formula.api as smf
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
+from utils.secrets import *
 
-we = pd.read_csv(
-    "C:/Users/benno/OneDrive/Data/cleanWater_education/final/water_education_fs_final.csv"
+s3 = boto3.client(
+    "s3",
+    region_name=REGION,
+    aws_access_key_id=aws_access_key,
+    aws_secret_access_key=aws_secret_key,
 )
+
+
+def read_csv_from_s3(key):
+    obj = s3.get_object(Bucket=aws_bucket_name, Key=key)
+    return pd.read_csv(io.BytesIO(obj["Body"].read()))
+
+
+def load_model_from_s3(key):
+    model_buffer = io.BytesIO()
+    s3.download_fileobj(aws_bucket_name, key, model_buffer)
+    model_buffer.seek(0)
+    return pickle.load(model_buffer)
+
+
+we = read_csv_from_s3("water_education_fs_final.csv")
+summ = read_csv_from_s3("summ_table.csv")
+sm_sf_preds = read_csv_from_s3("sm_sf_preds.csv")
+sm_model = load_model_from_s3("sm_model.pkl")
+
 we = we.rename(
     columns={
         "Gross_Tertiary_Education_Enrollment": "college_enrollment",
@@ -25,24 +50,8 @@ collst_fe = [
     "lower_school_water__limited_0%",
 ]
 
-summ = pd.read_csv(
-    "C:/Users/benno/OneDrive/Data/cleanWater_education/final/summ_table.csv"
-)
-
-formula = """
-    college_enrollment ~ 
-        lower_school_water__none + 
-        lower_school_water__limited + 
-        Q('lower_school_water__none_0%') + 
-        Q('lower_school_water__limited_0%')
-"""
-sm_model = smf.ols(formula, data=we).fit(cov_type="HC3")
-summary = sm_model.summary()
 sm_Y_preds = sm_model.fittedvalues
 sm_resids = sm_model.resid
-predictions = sm_model.get_prediction(we)
-sm_sf_preds = predictions.summary_frame(alpha=0.05)
-
 x = sm_model.model.exog
 x_cols = sm_model.model.exog_names
 
