@@ -7,12 +7,7 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 from utils.secrets import *
 
-s3 = boto3.client(
-    "s3",
-    region_name=REGION,
-    aws_access_key_id=aws_access_key,
-    aws_secret_access_key=aws_secret_key,
-)
+s3 = boto3.client("s3", region_name=REGION)
 
 
 def read_csv_from_s3(key):
