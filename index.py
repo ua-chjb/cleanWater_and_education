@@ -11,18 +11,16 @@ from components.header import header
 from components.mobile import mobile
 
 
-body = (
-    html.Div(
-        [
-            top_cards,
-            html.Div(
-                id="main-content",
-                children=intro,
-            ),
-            dcc.Location(id="url", refresh=True),
-            dcc.Store(id="active-page", data="overview"),
-        ],
-    ),
+body = html.Div(
+    [
+        top_cards,
+        html.Div(
+            id="main-content",
+            children=intro,
+        ),
+        dcc.Location(id="url", refresh=True),
+        dcc.Store(id="active-page", data="overview"),
+    ],
 )
 
 All = html.Div(
