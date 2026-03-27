@@ -10,28 +10,29 @@ from components.footer import footer
 from components.header import header
 from components.mobile import mobile
 
-Header = html.Div(
+
+body = (
+    html.Div(
+        [
+            top_cards,
+            html.Div(
+                id="main-content",
+                children=intro,
+            ),
+            dcc.Location(id="url", refresh=True),
+            dcc.Store(id="active-page", data="overview"),
+        ],
+    ),
+)
+
+All = html.Div(
     [
         mobile,
         header,
-        html.Div(
-            [
-                top_cards,
-                html.Div(
-                    id="main-content",
-                    children=intro,
-                ),
-                dcc.Location(id="url", refresh=True),
-                dcc.Store(id="active-page", data="overview"),
-            ],
-            className="desktop-only",
-        ),
+        body,
         footer,
-    ]
+    ],
+    className="desktop-only",
 )
 
-Body = dmc.MantineProvider(
-    [
-        Header,
-    ]
-)
+Content = dmc.MantineProvider([All])
