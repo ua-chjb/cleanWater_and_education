@@ -58,7 +58,7 @@ def switchboard(app):
         Output("eda_OUT", "figure"),
         Input("eda_select_x_IN", "value"),
         Input("eda_select_y_IN", "value"),
-        Input("eda_select_z_IN", "values"),
+        Input("eda_select_z_IN", "value"),
     )
     def eda_fold_one(x, y, z):
         return lyt(eda(x, y, z))
