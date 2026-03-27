@@ -1,33 +1,10 @@
 from dash import dcc, html
 import dash_mantine_components as dmc
 
-from utils.data import we, collst_fe, summ
+from utils.data import collst_fe, summ
 
 eda = html.Div(
     [
-        html.Div(
-            [
-                dmc.ScrollArea(
-                    dmc.Table(
-                        data={
-                            "head": summ.drop(["index"], axis=1)
-                            .astype(str)
-                            .columns.tolist(),
-                            "body": summ.drop(["index"], axis=1)
-                            .astype(str)
-                            .values.tolist(),
-                        },
-                        striped=True,
-                        highlightOnHover=True,
-                        withTableBorder=True,
-                        withColumnBorders=True,
-                    ),
-                    type="auto",
-                    className="eda-table",
-                ),
-            ],
-            className="eda-fold-2",
-        ),
         html.Div(
             [
                 html.Div(
@@ -75,6 +52,29 @@ eda = html.Div(
                 ),
             ],
             className="eda-fold-1",
+        ),
+        html.Div(
+            [
+                dmc.ScrollArea(
+                    dmc.Table(
+                        data={
+                            "head": summ.drop(["index"], axis=1)
+                            .astype(str)
+                            .columns.tolist(),
+                            "body": summ.drop(["index"], axis=1)
+                            .astype(str)
+                            .values.tolist(),
+                        },
+                        striped=True,
+                        highlightOnHover=True,
+                        withTableBorder=True,
+                        withColumnBorders=True,
+                    ),
+                    type="auto",
+                    className="eda-table",
+                ),
+            ],
+            className="eda-fold-2",
         ),
     ]
 )
