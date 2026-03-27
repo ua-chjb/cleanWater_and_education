@@ -23,7 +23,6 @@ def load_model_from_s3(key):
 
 
 we = read_csv_from_s3("water_education_fs_final.csv")
-summ = read_csv_from_s3("summ_table.csv")
 sm_sf_preds = read_csv_from_s3("sm_sf_preds.csv")
 sm_model = load_model_from_s3("sm_model.pkl")
 
@@ -45,8 +44,7 @@ collst_fe = [
     "lower_school_water__limited_0%",
 ]
 
-tables = summ.tables
-
+tables = sm_model.summary().tables
 sm_Y_preds = sm_model.fittedvalues
 sm_resids = sm_model.resid
 x = sm_model.model.exog
