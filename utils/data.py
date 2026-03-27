@@ -23,6 +23,7 @@ def load_model_from_s3(key):
 
 
 we = read_csv_from_s3("water_education_fs_final.csv")
+summ = read_csv_from_s3("summ_table.csv")
 sm_sf_preds = read_csv_from_s3("sm_sf_preds.csv")
 sm_model = load_model_from_s3("sm_model.pkl")
 
