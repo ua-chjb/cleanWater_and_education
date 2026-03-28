@@ -2,6 +2,7 @@ from dash import dcc, html
 import dash_mantine_components as dmc
 
 from utils.data import collst_fe, summ
+from utils.eda_text import eda_text_dct
 
 eda = html.Div(
     [
@@ -9,6 +10,15 @@ eda = html.Div(
             [
                 html.Div(
                     [
+                        dmc.Card(
+                            [
+                                dmc.Text(t, size="sm", mb="sm")
+                                for t in eda_text_dct.values()
+                            ],
+                            withBorder=True,
+                            radius="md",
+                            className="model-text-card",
+                        ),
                         dmc.Card(
                             [
                                 dmc.Select(
@@ -59,7 +69,7 @@ eda = html.Div(
                             className="eda-dropdown-card",
                         ),
                     ],
-                    className="eda-dropdown-div",
+                    className="eda-dropdown-div in",
                 ),
                 dmc.Card(
                     [dcc.Graph(figure={}, id="eda_OUT")],
