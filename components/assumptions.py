@@ -19,4 +19,5 @@ def assumptions_accordion():
             for key, val in assumptions_text_dct.items()
         ],
         id="assumptions_accordion_IN",
+        value="linearity",
     )

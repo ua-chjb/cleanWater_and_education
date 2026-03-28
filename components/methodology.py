@@ -9,4 +9,5 @@ methodology_accordion = dmc.Accordion(
         for key, val in methodology_text_dct.items()
     ],
     className="methodology-accordion",
+    value="informal-hypothesis",
 )
