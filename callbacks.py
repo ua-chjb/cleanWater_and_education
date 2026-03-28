@@ -11,7 +11,8 @@ from components.charts import (
     map_geo,
 )
 from components.content import content_map, headers_map
-from utils.data import sm_model, sm_resids, sm_Y_preds
+from components.df_to_table import to_dmc_table
+from utils.data import sm_model, sm_resids, sm_Y_preds, tables
 
 
 def switchboard(app):
@@ -121,3 +122,15 @@ def switchboard(app):
             return go.Figure(), hide_graph, assumptions_multicollinearity(), show_card
 
         return go.Figure(), hide_graph, None, hide_card
+
+    @app.callback(
+        Output("model-summ-OUT", "children"),
+        Input("model-summ-IN", "value"),
+    )
+    def model_summary_display(table_name):
+        if table_name == "Coefficients":
+            return to_dmc_table(tables[1])
+        elif table_name == "Diagnostics":
+            return to_dmc_table(tables[2])
+        else:
+            return to_dmc_table(tables[0])

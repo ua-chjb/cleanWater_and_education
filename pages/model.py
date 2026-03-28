@@ -15,7 +15,17 @@ model = html.Div(
                     withBorder=True,
                     radius="md",
                     className="model-text-card",
-                )
+                ),
+                dmc.Select(
+                    id="model-summ-IN",
+                    label="model summaries",
+                    placeholder="select...",
+                    data=["Model overview", "Coefficients", "Diagnostics"],
+                    value="Model overview",
+                    clearable=False,
+                    searchable=True,
+                    disabled=False,
+                ),
             ],
             className="model-left in",
         ),
@@ -30,19 +40,8 @@ model = html.Div(
                 html.Div(
                     [
                         dmc.Card(
-                            [to_dmc_table(tables[0])],
-                            withBorder=True,
-                            radius="md",
-                            className="model-table-card",
-                        ),
-                        dmc.Card(
-                            [to_dmc_table(tables[1])],
-                            withBorder=True,
-                            radius="md",
-                            className="model-table-card",
-                        ),
-                        dmc.Card(
-                            [to_dmc_table(tables[2])],
+                            [],
+                            id="model-summ-OUT",
                             withBorder=True,
                             radius="md",
                             className="model-table-card",
