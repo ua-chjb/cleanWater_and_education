@@ -23,9 +23,8 @@ body = html.Div(
     ],
 )
 
-All = html.Div(
+Desktop = html.Div(
     [
-        mobile,
         header,
         body,
         footer,
@@ -33,4 +32,4 @@ All = html.Div(
     className="desktop-only",
 )
 
-Content = dmc.MantineProvider([All])
+Content = dmc.MantineProvider([mobile, Desktop])
