@@ -20,7 +20,7 @@ model = html.Div(
                     [
                         dmc.Select(
                             id="model-summ-IN",
-                            label="model summaries",
+                            label="Model summaries",
                             placeholder="select...",
                             data=["Model overview", "Coefficients", "Diagnostics"],
                             value="Model overview",
