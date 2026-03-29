@@ -1,7 +1,7 @@
 methodology_text_dct = {
     "Informal hypothesis": {
         0: "Informally, this analysis investigated the relationship between clean water levels and education rates, by country.",
-        1: "Specifically, water availability in lower schools was determined to be the best predictor, in terms of both absence of null values and in variance explained . The outcome variable landed on was college enrollment. So, the final informal hypothesis question was: does the prevalence of clean water in lower schools impact the percentage of people who end up attending college?",
+        1: "Specifically, water availability in lower schools was determined to be the best predictor, in terms of both absence of null values and in variance explained. The outcome variable landed on was college enrollment. So, the final informal hypothesis question was: does the prevalence of clean water in lower schools impact the percentage of people who end up attending college?",
     },
     "Data identification": {
         0: "The data was gathered from two sources: clean water data was extracted through the WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation, and Hygiene (JMP); and education data was found on a Kaggle repository. This data was grouped at the country level."
