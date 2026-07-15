@@ -72,7 +72,7 @@ eda = html.Div(
                     className="eda-dropdown-div in",
                 ),
                 dmc.Card(
-                    [dcc.Graph(figure={}, id="eda_OUT")],
+                    [dcc.Graph(figure={}, id="eda_OUT", style={"height": "100%"})],
                     radius="md",
                     withBorder=True,
                     className="eda-graph-card",
